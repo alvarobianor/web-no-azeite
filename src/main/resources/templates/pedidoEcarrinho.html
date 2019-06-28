@@ -1,0 +1,72 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Valor</th>
+				<!-- <th scope="col">Handle</th> -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="prato : ${list}">
+				<th th:text="${prato.id}">
+				<th th:text="${prato.nome}">
+				<th th:text="${prato.preco}">
+				<td> <img width="100" height="100" alt="" th:src="@{'/images/'+${prato.nome}+.png}"/> </td>
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	<!-- <input type="number" th:numbers="${aidi.cod}">
+	 -->
+	<form action="http://localhost:8080/pedidos" method="post">
+	
+	Codigo: <input type="number" name="id"> <br>
+	
+	Conta-Valor: <p th:text="${conta}"></p>
+	
+	
+	<input type="submit" value="Vai">
+	
+	</form>
+	Cliente: <input type="number" name="cpf" id="cpf"> <br> <a id="link" href="#" onclick="link()" ><button> Fazer pedido</button></a>
+	<script>
+		function link() {
+			let x = document.getElementById('cpf').value;
+			document.getElementById('link').href = "http://localhost:8080/pedidos/fecharCarrinho/" + x;
+
+		}
+	</script>
+	<hr>
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Valor</th>
+				<!-- <th scope="col">Handle</th> -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="prato : ${carrinho.pratos}">
+				<th th:text="${prato.id}">
+				<th th:text="${prato.nome}">
+				<th th:text="${prato.preco}">
+				<th> <a th:href="@{/pedidos/atualizarCarrinho/{id}(id = ${prato.id})}">Remover</a>
+				
+			</tr>
+		</tbody>
+	</table>
+	<hr>
+	
+	
+</body>
+</html>
